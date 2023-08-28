@@ -1,6 +1,6 @@
 package com.n.opensource.reddoit.controllers.service;
 
-import com.n.opensource.reddoit.model.dto.PostDTO;
+import com.n.opensource.reddoit.model.dto.RecipeDTO;
 import com.n.opensource.reddoit.model.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,16 +20,16 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public PostDTO createPost(PostDTO postDTO){
-        return getPostRepository().save(postDTO);
+    public RecipeDTO createPost(RecipeDTO recipeDTO){
+        return getPostRepository().save(recipeDTO);
     }
 
-    public PostDTO getPostById(UUID postID){
+    public RecipeDTO getPostById(UUID postID){
         return getPostRepository().findById(postID).orElse(null);
     }
 
     public void deletePost (UUID postID){
-        Optional<PostDTO> post = getPostRepository().findById(postID);
+        Optional<RecipeDTO> post = getPostRepository().findById(postID);
         if (post.isPresent()){
             getPostRepository().delete(post.get());
             LOG.info("Post with ID {} got deleted", post.get().getId());

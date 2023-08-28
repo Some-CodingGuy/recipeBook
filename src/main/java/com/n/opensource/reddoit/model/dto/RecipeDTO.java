@@ -15,14 +15,13 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PostDTO {
+public class RecipeDTO {
 
     @Id
     private UUID id;
     private String title;
-    private String subheader;
     @OneToOne
-    private ImportantInfoDTO importantInfo;
+    private ImportantInfoRecipeDTO importantInfo;
     private String bodyContent;
     @ManyToOne
     private UserDTO author;

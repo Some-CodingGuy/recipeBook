@@ -6,7 +6,6 @@ import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @Setter
 @Getter
@@ -23,7 +22,7 @@ public class UserDTO {
     private String password;
     private String description;
     @OneToMany
-    private List<PostDTO> postDTOList;
+    private List<RecipeDTO> recipeDTOList;
 
     // profile picture
 }

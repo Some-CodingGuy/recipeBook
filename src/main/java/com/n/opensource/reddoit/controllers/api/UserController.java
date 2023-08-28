@@ -28,9 +28,9 @@ public class UserController {
 
     // deleteUser
     @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteUser(@RequestParam(name = "id") Integer id){
+    public ResponseEntity<String> deleteUser(@RequestParam(name = "id") Integer id){
         userService.deleteUser(id);
-        Void void2 = null;
-        return ResponseEntity.ok(void2);
+        String response = "User has been deleted";
+        return ResponseEntity.ok(response);
     }
 }
