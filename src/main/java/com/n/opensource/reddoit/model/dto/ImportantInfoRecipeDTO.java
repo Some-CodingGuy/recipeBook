@@ -20,7 +20,7 @@ public class ImportantInfoRecipeDTO {
     @Id
     private UUID id;
     // The ingredients will be an array of tuples first element being the quantity (to be chosen from the enum), second element being the ingredient itself
-    private List<> ingredientsList;
+    private List<String> ingredientsList;
     // Ingredient substitutions (not MVP)
     // 1 corn starch == 1.3 potato starch
     private int minNeeded;

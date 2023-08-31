@@ -30,7 +30,7 @@ public class RecipeService {
         Optional<RecipeDTO> recipe = recipeRepository.findById(recipeId);
         if (recipe.isPresent()){
             recipeRepository.delete(recipe.get());
-            LOG.info("Recipe with ID {} got deleted", recipe.get().getId());
+            //LOG.info("Recipe with ID {} got deleted", recipe.get().getId());
         } else {
             LOG.error(String.format("Recipe with id %i doesn't exist!", recipeId));
         }

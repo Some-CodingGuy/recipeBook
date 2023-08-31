@@ -17,13 +17,9 @@ import java.util.UUID;
 @Builder
 public class RecipeDTO {
 
-    @Id
-    private UUID id;
     private String title;
-    @OneToOne
     private ImportantInfoRecipeDTO importantInfo;
     private String bodyContent;
-    @ManyToOne
     private UserDTO author;
     private boolean isOnline;
     private Date creationTime;
