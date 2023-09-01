@@ -1,6 +1,7 @@
 package com.n.opensource.reddoit.controllers.service;
 
 import com.n.opensource.reddoit.model.dto.UserDTO;
+import com.n.opensource.reddoit.model.entity.User;
 import com.n.opensource.reddoit.model.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,17 +21,28 @@ public class UserService {
     private final UserRepository userRepository;
 
     public UserDTO createUser(UserDTO userDTO){
-        return getUserRepository().save(userDTO);
+        User user = User.builder()
+                .username(userDTO.getUsername())
+                .email(userDTO.getEmail())
+                .password(userDTO.getPassword())
+                .build();
+        userRepository.save(user);
+        return userDTO;
     }
 
     public UserDTO getUserById(Integer userID){
-        return getUserRepository().findById(userID).orElse(null);
+        Optional<User> user = userRepository.findById(userID);
+        return user.map(value -> UserDTO.builder()
+                .username(value.getUsername())
+                .email(value.getEmail())
+                //.recipes(value.getRecipes())
+                .build()).orElse(null);
     }
 
     public void deleteUser(Integer userID){
-        Optional<UserDTO> user = getUserRepository().findById(userID);
+        Optional<User> user = userRepository.findById(userID);
         if (user.isPresent()){
-            getUserRepository().delete(user.get());
+            userRepository.delete(user.get());
             LOG.info("User with ID {} got deleted", user.get().getId());
         } else {
             LOG.error(String.format("User with id %i doesn't exist!", userID));

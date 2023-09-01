@@ -1,23 +1,25 @@
-package com.n.opensource.reddoit.model.dto;
+package com.n.opensource.reddoit.model.entity;
 
-import com.n.opensource.reddoit.model.entity.ImportantRecipeInfo;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
+
 import java.util.Date;
+import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RecipeDTO {
-
+@Entity
+public class Recipe {
+    @Id
+    private UUID id;
     private String title;
-    private ImportantRecipeInfo importantInfo;
+    //private ImportantRecipeInfo importantInfo;
     private String bodyContent;
     private boolean isOnline;
     private Date creationTime;
     private Date publishedTime;
-
-    // Add a banner for the post
-
 }

@@ -1,12 +1,16 @@
 package com.n.opensource.reddoit.controllers.service;
 
 import com.n.opensource.reddoit.model.dto.RecipeDTO;
+import com.n.opensource.reddoit.model.dto.UserDTO;
+import com.n.opensource.reddoit.model.entity.Recipe;
+import com.n.opensource.reddoit.model.entity.User;
 import com.n.opensource.reddoit.model.repository.RecipeRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,15 +23,32 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
 
     public RecipeDTO createRecipe(RecipeDTO recipeDTO){
-        return recipeRepository.save(recipeDTO);
+        Recipe recipe = Recipe.builder()
+                .title(recipeDTO.getTitle())
+                //.importantInfo(recipeDTO.getImportantInfo())
+                .bodyContent(recipeDTO.getBodyContent())
+                .isOnline(true)
+                .creationTime(new Date())
+                .publishedTime(new Date())
+                .build();
+        recipeRepository.save(recipe);
+        return recipeDTO;
     }
 
     public RecipeDTO getRecipeById(UUID recipeId){
-        return recipeRepository.findById(recipeId).orElse(null);
+        Optional<Recipe> user = recipeRepository.findById(recipeId);
+        return user.map(value -> RecipeDTO.builder()
+                .title(value.getTitle())
+                //.importantInfo(value.getImportantInfo())
+                .bodyContent(value.getBodyContent())
+                .isOnline(value.isOnline())
+                .creationTime(value.getCreationTime())
+                .publishedTime(value.getPublishedTime())
+                .build()).orElse(null);
     }
 
     public void deleteRecipe (UUID recipeId){
-        Optional<RecipeDTO> recipe = recipeRepository.findById(recipeId);
+        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
         if (recipe.isPresent()){
             recipeRepository.delete(recipe.get());
             LOG.info("Recipe with ID {} got deleted", recipe.get().getId());
