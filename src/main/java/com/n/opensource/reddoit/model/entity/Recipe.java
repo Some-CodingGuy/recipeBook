@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,7 +20,8 @@ public class Recipe {
     private String title;
     //private ImportantRecipeInfo importantInfo;
     private String bodyContent;
-    private boolean isOnline;
-    private Date creationTime;
-    private Date publishedTime;
+    private boolean isOnline = true;
+    private Date creationTime = new Date();
+    private Date publishedTime = new Date();
+    //private ArrayList<FoodTag> foodTags;
 }

@@ -5,7 +5,9 @@ import com.n.opensource.reddoit.model.dto.UserDTO;
 import com.n.opensource.reddoit.model.entity.Recipe;
 import com.n.opensource.reddoit.model.entity.User;
 import com.n.opensource.reddoit.model.repository.RecipeRepository;
+import com.n.opensource.reddoit.requests.CreateRecipeRequest;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -21,18 +23,14 @@ public class RecipeService {
     final static Logger LOG = LoggerFactory.getLogger(RecipeService.class);
 
     private final RecipeRepository recipeRepository;
-
-    public RecipeDTO createRecipe(RecipeDTO recipeDTO){
-        Recipe recipe = Recipe.builder()
-                .title(recipeDTO.getTitle())
-                //.importantInfo(recipeDTO.getImportantInfo())
-                .bodyContent(recipeDTO.getBodyContent())
-                .isOnline(true)
-                .creationTime(new Date())
-                .publishedTime(new Date())
-                .build();
-        recipeRepository.save(recipe);
-        return recipeDTO;
+    private final ModelMapper modelMapper;
+    public RecipeDTO createRecipe(CreateRecipeRequest createRecipeRequest){
+        Recipe recipe = modelMapper.map(createRecipeRequest, Recipe.class);
+        recipe.setId(UUID.randomUUID());
+        recipe.setOnline(true);
+        recipe.setCreationTime(new Date());
+        recipe.setPublishedTime(new Date());
+        return modelMapper.map(recipeRepository.save(recipe), RecipeDTO.class);
     }
 
     public RecipeDTO getRecipeById(UUID recipeId){

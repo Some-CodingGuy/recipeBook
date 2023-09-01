@@ -3,8 +3,10 @@ package com.n.opensource.reddoit.controllers.service;
 import com.n.opensource.reddoit.model.dto.UserDTO;
 import com.n.opensource.reddoit.model.entity.User;
 import com.n.opensource.reddoit.model.repository.UserRepository;
+import com.n.opensource.reddoit.requests.CreateUserRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,18 +21,14 @@ public class UserService {
     final static Logger LOG = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
-
-    public UserDTO createUser(UserDTO userDTO){
-        User user = User.builder()
-                .username(userDTO.getUsername())
-                .email(userDTO.getEmail())
-                .password(userDTO.getPassword())
-                .build();
-        userRepository.save(user);
-        return userDTO;
+    private ModelMapper modelMapper;
+    public UserDTO createUser(CreateUserRequest createUserRequest) {
+        User user = modelMapper.map(createUserRequest, User.class);
+        User savedUserDTO = userRepository.save(user);
+        return modelMapper.map(savedUserDTO, UserDTO.class);
     }
 
-    public UserDTO getUserById(Integer userID){
+    public UserDTO getUserById(Long userID){
         Optional<User> user = userRepository.findById(userID);
         return user.map(value -> UserDTO.builder()
                 .username(value.getUsername())
@@ -39,7 +37,7 @@ public class UserService {
                 .build()).orElse(null);
     }
 
-    public void deleteUser(Integer userID){
+    public void deleteUser(Long userID){
         Optional<User> user = userRepository.findById(userID);
         if (user.isPresent()){
             userRepository.delete(user.get());

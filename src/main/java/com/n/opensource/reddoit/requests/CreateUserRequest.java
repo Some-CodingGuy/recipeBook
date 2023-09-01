@@ -1,22 +1,18 @@
-package com.n.opensource.reddoit.model.dto;
+package com.n.opensource.reddoit.requests;
 
 import com.n.opensource.reddoit.model.entity.Recipe;
-import jakarta.persistence.Id;
 import lombok.*;
 
 import java.util.List;
 
-
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDTO {
-
+public class CreateUserRequest {
     public String username;
     public String email;
+    public String password;
     public List<Recipe> recipes;
-
-    // profile picture
 }
