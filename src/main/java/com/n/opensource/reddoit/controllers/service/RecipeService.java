@@ -1,12 +1,18 @@
 package com.n.opensource.reddoit.controllers.service;
 
 import com.n.opensource.reddoit.model.dto.RecipeDTO;
+import com.n.opensource.reddoit.model.dto.UserDTO;
+import com.n.opensource.reddoit.model.entity.Recipe;
+import com.n.opensource.reddoit.model.entity.User;
 import com.n.opensource.reddoit.model.repository.RecipeRepository;
+import com.n.opensource.reddoit.requests.CreateRecipeRequest;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,17 +23,30 @@ public class RecipeService {
     final static Logger LOG = LoggerFactory.getLogger(RecipeService.class);
 
     private final RecipeRepository recipeRepository;
-
-    public RecipeDTO createRecipe(RecipeDTO recipeDTO){
-        return recipeRepository.save(recipeDTO);
+    private final ModelMapper modelMapper;
+    public RecipeDTO createRecipe(CreateRecipeRequest createRecipeRequest){
+        Recipe recipe = modelMapper.map(createRecipeRequest, Recipe.class);
+        recipe.setId(UUID.randomUUID());
+        recipe.setOnline(true);
+        recipe.setCreationTime(new Date());
+        recipe.setPublishedTime(new Date());
+        return modelMapper.map(recipeRepository.save(recipe), RecipeDTO.class);
     }
 
     public RecipeDTO getRecipeById(UUID recipeId){
-        return recipeRepository.findById(recipeId).orElse(null);
+        Optional<Recipe> user = recipeRepository.findById(recipeId);
+        return user.map(value -> RecipeDTO.builder()
+                .title(value.getTitle())
+                //.importantInfo(value.getImportantInfo())
+                .bodyContent(value.getBodyContent())
+                .isOnline(value.isOnline())
+                .creationTime(value.getCreationTime())
+                .publishedTime(value.getPublishedTime())
+                .build()).orElse(null);
     }
 
     public void deleteRecipe (UUID recipeId){
-        Optional<RecipeDTO> recipe = recipeRepository.findById(recipeId);
+        Optional<Recipe> recipe = recipeRepository.findById(recipeId);
         if (recipe.isPresent()){
             recipeRepository.delete(recipe.get());
             //LOG.info("Recipe with ID {} got deleted", recipe.get().getId());
