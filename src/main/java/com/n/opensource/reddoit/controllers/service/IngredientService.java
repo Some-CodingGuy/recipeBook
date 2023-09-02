@@ -17,16 +17,7 @@ public class IngredientService {
     @Autowired
     private final ModelMapper modelMapper;
     public IngredientDTO createIngredient(IngredientDTO ingredientDTO) {
-        /*Ingredient ingredient = Ingredient.builder()
-                .name(ingredientDTO.getName())
-                .amount(ingredientDTO.getAmount())
-                .measurements(ingredientDTO.getMeasurements())
-                .build();
-        ingredientRepository.save(ingredient);
-
-        return ingredientDTO;*/
         Ingredient ingredient = modelMapper.map(ingredientDTO, Ingredient.class);
-        System.out.println(ingredient);
         Ingredient savedIngredient = ingredientRepository.save(ingredient);
         return modelMapper.map(savedIngredient, IngredientDTO.class);
     }

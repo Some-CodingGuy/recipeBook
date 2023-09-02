@@ -3,6 +3,7 @@ package com.n.opensource.reddoit.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -20,8 +21,8 @@ public class Recipe {
     @OneToOne
     private ImportantRecipeInfo importantInfo;
     private String bodyContent;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
-    private List<Ingredient> ingredients;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<Ingredient> ingredients;
     @ManyToOne
     private User author;
     private boolean isOnline;
