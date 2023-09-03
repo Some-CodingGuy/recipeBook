@@ -1,6 +1,7 @@
 package com.n.opensource.reddoit.requests;
 
 import com.n.opensource.reddoit.model.entity.FoodTag;
+import com.n.opensource.reddoit.model.entity.Ingredient;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
@@ -21,4 +22,5 @@ public class CreateRecipeRequest {
         public Date creationTime;
         public Date publishedTime;
         public ArrayList<FoodTag> foodTags;
+        public ArrayList<Ingredient> ingredients;
 }

@@ -2,8 +2,10 @@ package com.n.opensource.reddoit.controllers.service;
 
 import com.n.opensource.reddoit.model.dto.RecipeDTO;
 import com.n.opensource.reddoit.model.dto.UserDTO;
+import com.n.opensource.reddoit.model.entity.Ingredient;
 import com.n.opensource.reddoit.model.entity.Recipe;
 import com.n.opensource.reddoit.model.entity.User;
+import com.n.opensource.reddoit.model.enums.Measurements;
 import com.n.opensource.reddoit.model.repository.RecipeRepository;
 import com.n.opensource.reddoit.requests.CreateRecipeRequest;
 import lombok.AllArgsConstructor;
@@ -12,9 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -49,7 +49,7 @@ public class RecipeService {
         Optional<Recipe> recipe = recipeRepository.findById(recipeId);
         if (recipe.isPresent()){
             recipeRepository.delete(recipe.get());
-            LOG.info("Recipe with ID {} got deleted", recipe.get().getId());
+            //LOG.info("Recipe with ID {} got deleted", recipe.get().getId());
         } else {
             LOG.error(String.format("Recipe with id %i doesn't exist!", recipeId));
         }

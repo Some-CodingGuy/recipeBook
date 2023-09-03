@@ -1,11 +1,11 @@
 package com.n.opensource.reddoit.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -18,10 +18,14 @@ public class Recipe {
     @Id
     private UUID id;
     private String title;
-    //private ImportantRecipeInfo importantInfo;
+    @OneToOne
+    private ImportantRecipeInfo importantInfo;
     private String bodyContent;
-    private boolean isOnline = true;
-    private Date creationTime = new Date();
-    private Date publishedTime = new Date();
-    //private ArrayList<FoodTag> foodTags;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<Ingredient> ingredients;
+    @ManyToOne
+    private User author;
+    private boolean isOnline;
+    private Date creationTime;
+    private Date publishedTime;
 }

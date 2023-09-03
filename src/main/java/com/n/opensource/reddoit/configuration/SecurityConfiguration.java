@@ -25,6 +25,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/v1/recipe/create").permitAll()
                         .requestMatchers("/api/v1/user/register").permitAll()
+                        .requestMatchers("/api/v1/**").permitAll()
                 ).build();
     }
 }
