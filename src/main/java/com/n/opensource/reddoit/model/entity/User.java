@@ -1,9 +1,10 @@
 package com.n.opensource.reddoit.model.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -16,5 +17,7 @@ public class User {
     private String username;
     private String password;
     private String email;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Rating> userRatings;
     //private ArrayList<Recipe> recipes;
 }
