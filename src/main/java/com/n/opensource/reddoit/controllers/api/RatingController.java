@@ -4,6 +4,7 @@ import com.n.opensource.reddoit.controllers.service.RatingService;
 import com.n.opensource.reddoit.model.dto.RatingDTO;
 import com.n.opensource.reddoit.requests.CreateRatingRequest;
 import lombok.AllArgsConstructor;
+import org.modelmapper.internal.util.Assert;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,8 @@ public class RatingController {
     // Create
     @PostMapping("/rate")
     public ResponseEntity<RatingDTO> createRating(@RequestBody CreateRatingRequest createRatingRequest){
+        Assert.isTrue(createRatingRequest.getRating() > 100, "Rating must be between 0 and 100.");
+        Assert.isTrue(createRatingRequest.getRating() < 0, "Rating must be between 0 and 100.");
         return ResponseEntity.ok(ratingService.createRating(createRatingRequest));
     }
 
