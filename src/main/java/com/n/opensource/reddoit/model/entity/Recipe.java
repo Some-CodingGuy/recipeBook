@@ -3,7 +3,6 @@ package com.n.opensource.reddoit.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -28,4 +27,6 @@ public class Recipe {
     private boolean isOnline;
     private Date creationTime;
     private Date publishedTime;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<Rating> ratings;
 }

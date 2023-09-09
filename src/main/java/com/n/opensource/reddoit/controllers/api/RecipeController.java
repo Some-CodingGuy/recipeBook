@@ -32,6 +32,4 @@ public class RecipeController {
         String response = "Recipe has been deleted";
         return ResponseEntity.ok(response);
     }
-
-
 }
