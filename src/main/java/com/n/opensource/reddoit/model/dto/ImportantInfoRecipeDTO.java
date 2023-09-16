@@ -3,7 +3,9 @@ package com.n.opensource.reddoit.model.dto;
 import com.n.opensource.reddoit.model.entity.FoodTag;
 import com.n.opensource.reddoit.model.entity.Recipe;
 import lombok.*;
+
 import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
