@@ -31,5 +31,6 @@ public class Recipe {
     public List<Rating> ratings;
     @Lob
     private byte[] recipeBanner;
+    @OneToMany
     private List<FoodTag> foodTags;
 }

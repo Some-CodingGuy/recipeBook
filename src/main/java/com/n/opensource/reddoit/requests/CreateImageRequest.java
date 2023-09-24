@@ -9,4 +9,5 @@ import lombok.Setter;
 @Builder
 public class CreateImageRequest {
     public byte[] imageData;
+    public String title;
 }

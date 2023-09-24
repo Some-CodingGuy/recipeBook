@@ -21,10 +21,11 @@ public class ImageController {
     private final ImageService imageService;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("title") String title) {
         try {
             CreateImageRequest createImageRequest = CreateImageRequest.builder()
                     .imageData(file.getBytes())
+                    .title(title)
                     .build();
             imageService.uploadImage(createImageRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body("error while uploading image");

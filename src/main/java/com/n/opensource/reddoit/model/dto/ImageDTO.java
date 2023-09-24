@@ -10,4 +10,5 @@ import lombok.Setter;
 public class ImageDTO {
     public long id;
     public byte[] imageData;
+    private String title;
 }

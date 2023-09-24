@@ -15,4 +15,5 @@ public class Image {
     private long id;
     @Lob
     private byte[] imageData;
+    private String title;
 }
