@@ -4,6 +4,7 @@ import com.n.opensource.reddoit.model.entity.ImportantRecipeInfo;
 import com.n.opensource.reddoit.model.entity.Ingredient;
 import com.n.opensource.reddoit.model.entity.Rating;
 import com.n.opensource.reddoit.model.entity.User;
+import jakarta.persistence.Lob;
 import lombok.*;
 
 import java.util.Date;
@@ -26,5 +27,6 @@ public class RecipeDTO {
     private Date publishedTime;
     private List<Rating> ratings;
     // Add a banner for the post
-
+    @Lob
+    private byte[] recipeBanner;
 }

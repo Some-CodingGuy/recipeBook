@@ -29,4 +29,8 @@ public class Recipe {
     private Date publishedTime;
     @OneToMany(cascade = CascadeType.ALL)
     public List<Rating> ratings;
+    @Lob
+    private byte[] recipeBanner;
+    @OneToMany
+    private List<FoodTag> foodTags;
 }
